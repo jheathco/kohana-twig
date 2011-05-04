@@ -41,10 +41,10 @@ abstract class Controller_Twig extends Controller {
 		// Auto-generate template filename ('index' method called on Controller_Admin_Users looks for 'admin/users/index')
 		$this->template = $request->controller().'/'.$request->action().Kohana_Twig::$config->suffix;
 
-		if ( ! empty($request->directory))
+		if ($request->directory())
 		{
 			// Preprend directory if needed
-			$this->template = $request->directory.'/'.$this->template;
+			$this->template = $request->directory().'/'.$this->template;
 		}
 
 		parent::__construct($request, $response);
