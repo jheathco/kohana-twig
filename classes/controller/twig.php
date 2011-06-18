@@ -22,7 +22,7 @@ abstract class Controller_Twig extends Controller {
 	 */
 	public $context;
 
-	public function __construct(Request $request, Response $response)
+	public function __construct(Request $request)
 	{
 		// Setup the Twig loader environment
 		$this->twig = Kohana_Twig::instance();
@@ -39,15 +39,15 @@ abstract class Controller_Twig extends Controller {
 		}
 
 		// Auto-generate template filename ('index' method called on Controller_Admin_Users looks for 'admin/users/index')
-		$this->template = $request->controller().'/'.$request->action().Kohana_Twig::$config->suffix;
+		$this->template = $request->controller.'/'.$request->action.Kohana_Twig::$config->suffix;
 
-		if ($request->directory())
+		if ($request->directory)
 		{
 			// Preprend directory if needed
-			$this->template = $request->directory().'/'.$this->template;
+			$this->template = $request->directory.'/'.$this->template;
 		}
 
-		parent::__construct($request, $response);
+		parent::__construct($request);
 	}
 
 	public function after()
@@ -55,7 +55,7 @@ abstract class Controller_Twig extends Controller {
 		if ($this->auto_render)
 		{
 			// Auto-render the template
-			$this->response->body($this->twig->loadTemplate($this->template)->render((array) $this->context));
+			$this->request->response = $this->twig->loadTemplate($this->template)->render((array) $this->context);
 		}
 	}
 
