@@ -11,8 +11,7 @@ return array
 	),
 	'extensions' => array
 	(
-		'Kohana_Twig_Extension_Trans',
-		'Twig_Extension_Escaper',
+		// List extension class names
 	),
 	'cache'          => APPPATH.'cache/twig',
 	'templates'      => APPPATH.'views/twig',
